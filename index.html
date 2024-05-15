@@ -24,6 +24,20 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
+            box-sizing: border-box;
+        }
+        .navbar img {
+            height: 70px;
+        }
+        .navbar div {
+            display: flex;
+            align-items: center;
+        }
+        .navbar div input {
+            margin-left: 10px;
+        }
+        .navbar div button {
+            margin-left: 10px;
         }
         .navbar a {
             color: white;
@@ -101,11 +115,10 @@
 </head>
 <body>
     <div class="navbar">
+        <img src="Poyah.png" alt="POYAH Logo" onclick="redirectToHome()">
         <div>
-            <img src="Poyah.png" style="height: 60px;" alt="POYAH Logo" onclick="redirectToHome()">
-        </div>
-        <div>
-            Input unique number: <input type="text" id="uniqueNumber" placeholder="Enter number">
+            <label for="uniqueNumber">Input unique number:</label>
+            <input type="text" id="uniqueNumber" placeholder="Enter number">
             <button onclick="redirectBasedOnNumber()">Go</button>
             <a href="#" onclick="showSection('records')">What records to expect?</a>
             <a href="#" onclick="showSection('contact')">Contact Us</a>
@@ -134,6 +147,7 @@
             <h2>Owner: <span id="owner-name" class="bold"></span></h2>
             <div class="single-box-container">
                 <div class="single-box">
+                    <h3>Animal Data</h3>
                     <h3>Vaccination Records</h3>
                     <p id="vaccination-data"></p>
                     <h3>Treatment History</h3>
@@ -234,8 +248,8 @@
             document.getElementById(section).style.display = 'block';
         }
 
-        function redirectBasedOnNumber(number) {
-            const uniqueNumber = number || document.getElementById('uniqueNumber').value;
+        function redirectBasedOnNumber() {
+            const uniqueNumber = document.getElementById('uniqueNumber').value;
             if (ownersData[uniqueNumber]) {
                 document.getElementById('owner-name').innerHTML = ownersData[uniqueNumber].name;
                 document.getElementById('vaccination-data').innerHTML = ownersData[uniqueNumber].vaccination;
