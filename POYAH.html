@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POYAH</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #e0ffe0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+        .navbar {
+            background-color: #008000;
+            color: white;
+            padding: 10px 20px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .content {
+            padding: 20px;
+            text-align: center;
+            width: 100%;
+        }
+        .hidden {
+            display: none;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 300px;
+            padding: 10px;
+            margin-top: 5px;
+            box-sizing: border-box;
+        }
+        .form-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .box {
+            border: 2px solid #008000;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #f0fff0;
+            text-align: left;
+            width: fit-content;
+        }
+        .box-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .collar-item {
+            margin-bottom: 20px;
+        }
+        .collar-item img {
+            display: block;
+            margin: 10px auto;
+        }
+        .single-box-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .single-box {
+            border: 2px solid #008000;
+            padding: 10px;
+            margin-top: 20px;
+            background-color: #f0fff0;
+            text-align: center;
+            width: 60%;
+        }
+        .center {
+            text-align: center;
+        }
+        .submission-message {
+            display: none;
+            color: green;
+            margin-top: 10px;
+        }
+        .bold {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <img src="Poyah.png" style="height: 50px;" alt="POYAH Logo" onclick="redirectToHome()">
+            <span>POYAH</span>
+        </div>
+        <div>
+            Input unique number: <input type="text" id="uniqueNumber" placeholder="Enter number">
+            <button onclick="redirectBasedOnNumber()">Go</button>
+            <a href="#" onclick="showSection('records')">What records to expect?</a>
+            <a href="#" onclick="showSection('contact')">Contact Us</a>
+        </div>
+    </div>
+    <div class="content">
+        <!-- Mission and Inspiration Section -->
+        <div id="main">
+            <h2>Our Mission</h2>
+            <p>To provide the best care for your animals through comprehensive records and monitoring.</p>
+            <h3>Inspiration of the group for this project</h3>
+            <p>Our project is inspired by the need for better health management and record-keeping in animal husbandry.</p>
+            <img src="Team.png" alt="Team Picture" style="width: 50%;">
+        </div>
+
+        <!-- Owners Section -->
+        <div id="owners" class="hidden">
+            <h2>Owner: <span id="owner-name" class="bold"></span></h2>
+            <div class="single-box-container">
+                <div class="single-box">
+                    <h3>Vaccination Records</h3>
+                    <p id="vaccination-data"></p>
+                    <h3>Treatment History</h3>
+                    <p id="treatment-data"></p>
+                    <h3>Disease History</h3>
+                    <p id="disease-data"></p>
+                    <h3>Health Monitoring Data</h3>
+                    <p id="health-data"></p>
+                </div>
+            </div>
+        </div>
+
+        <div id="records" class="hidden">
+            <h2>What Records to Expect?</h2>
+            <div class="box-container">
+                <div class="box">
+                    <p>Vaccination Records, Treatment History, Disease History, and Health Monitoring Data.</p>
+                </div>
+                <div class="box">
+                    <p class="center">TYPES OF COLLARS</p>
+                    <div class="collar-item">
+                        <p class="center">Chicken Collar</p>
+                        <img src="Chicken.png" alt="Chicken Collar">
+                    </div>
+                    <div class="collar-item">
+                        <p class="center">Pig Collar</p>
+                        <img src="Pig.png" alt="Pig Collar">
+                    </div>
+                    <div class="collar-item">
+                        <p class="center">Cow Collar</p>
+                        <img src="Cow.png" alt="Cow Collar">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="contact" class="hidden">
+            <h2>Contact Us</h2>
+            <p>Group Name: POYAH</p>
+            <p>Contact Number: 09473428429</p>
+            <p>Facebook Page: <a href="https://facebook.com/poyah">POYAH Facebook</a></p>
+            <h3>Submit a form for any concern:</h3>
+            <div class="form-container">
+                <div class="box">
+                    <div class="form-group">
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address:</label>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="form-group">
+                        <label for="contact-number">Contact number:</label>
+                        <input type="text" id="contact-number" name="contact-number">
+                    </div>
+                    <div class="form-group">
+                        <label for="concern">Concern:</label>
+                        <textarea id="concern" name="concern" rows="4"></textarea>
+                    </div>
+                    <button type="submit" onclick="submitForm(event)">Submit</button>
+                </div>
+                <div class="submission-message" id="submission-message">Form submitted</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const ownersData = {
+            '1615231801': {
+                name: 'Helen - Native Chicken',
+                vaccination: 'Date: 2024-01-15<br>Vaccine: Newcastle Disease Vaccine<br>Batch Number: NDV-0423<br>Administered By: Dr. Jane Smith',
+                treatment: 'Date: 2024-02-10<br>Condition: Respiratory infection<br>Treatment: Antibiotics (Oxytetracycline)<br>Dosage: 100 mg/kg for 5 days<br>Administered By: Veterinary Technician Mike Johnson',
+                disease: 'Date: 2024-01-25<br>Disease: Coccidiosis<br>Treatment: Amprolium (Amprol)<br>Outcome: Recovered',
+                health: 'Date: 2024-05-01<br>Weight: 2.5 kg<br>Feed Intake: 150 g/day<br>Egg Production: 5 eggs/week'
+            },
+            '1615231802': {
+                name: 'Roilan - Pig',
+                vaccination: 'Date: 2024-02-15<br>Vaccine: Porcine Circovirus (PCV2) Vaccine<br>Batch Number: PCV2-0212<br>Administered By: Dr. Mark White',
+                treatment: 'Date: 2024-03-20<br>Condition: Swine Dysentery<br>Treatment: Antibiotics (Tiamulin)<br>Dosage: 8.8 mg/kg, daily for 5 days<br>Administered By: Veterinary Technician John Lee',
+                disease: 'Date: 2024-01-10<br>Disease: Porcine Reproductive and Respiratory Syndrome (PRRS)<br>Treatment: Supportive care and vaccination<br>Outcome: Recovered',
+                health: 'Date: 2024-05-01<br>Weight: 100 kg<br>Feed Intake: 3 kg/day<br>Growth Rate: 800 g/day'
+            },
+            '1615231803': {
+                name: 'Robert - Cow',
+                vaccination: 'Date: 2024-03-10<br>Vaccine: Foot-and-Mouth Disease (FMD) Vaccine<br>Batch Number: FMD-1057<br>Administered By: Dr. Sarah Brown',
+                treatment: 'Date: 2024-04-05<br>Condition: Mastitis<br>Treatment: Intramammary antibiotics (Cloxacillin)<br>Dosage: 500 mg per affected quarter, daily for 3 days<br>Administered By: Veterinary Technician Emily Davis',
+                disease: 'Date: 2023-12-20<br>Disease: Bovine Viral Diarrhea (BVD)<br>Treatment: Supportive care and fluid therapy<br>Outcome: Recovered',
+                health: 'Date: 2024-05-01<br>Weight: 600 kg<br>Feed Intake: 25 kg/day (total mixed ration)<br>Milk Production: 20 liters/day'
+            }
+        };
+
+        function showSection(section) {
+            document.getElementById('main').style.display = 'none';
+            document.getElementById('owners').style.display = 'none';
+            document.getElementById('records').style.display = 'none';
+            document.getElementById('contact').style.display = 'none';
+            document.getElementById(section).style.display = 'block';
+        }
+
+        function redirectBasedOnNumber(number) {
+            const uniqueNumber = number || document.getElementById('uniqueNumber').value;
+            if (ownersData[uniqueNumber]) {
+                document.getElementById('owner-name').innerHTML = ownersData[uniqueNumber].name;
+                document.getElementById('vaccination-data').innerHTML = ownersData[uniqueNumber].vaccination;
+                document.getElementById('treatment-data').innerHTML = ownersData[uniqueNumber].treatment;
+                document.getElementById('disease-data').innerHTML = ownersData[uniqueNumber].disease;
+                document.getElementById('health-data').innerHTML = ownersData[uniqueNumber].health;
+                showSection('owners');
+            } else {
+                alert('Invalid number. Please enter a valid unique number.');
+            }
+        }
+
+        function redirectToHome() {
+            window.location.href = 'file:///C:/Users/ANGELA/Documents/Techno/POYAH.html'; // Replace with your homepage URL
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            document.getElementById('submission-message').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('submission-message').style.display = 'none';
+            }, 2000);
+            document.getElementById('name').value = '';
+            document.getElementById('email').value = '';
+            document.getElementById('contact-number').value = '';
+            document.getElementById('concern').value = '';
+        }
+
+        function showOwnerSectionFromURL() {
+            const params = new URLSearchParams(window.location.search);
+            const uniqueNumber = params.get('number');
+            if (uniqueNumber) {
+                redirectBasedOnNumber(uniqueNumber);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', showOwnerSectionFromURL);
+    </script>
+</body>
+</html>
