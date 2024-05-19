@@ -279,13 +279,19 @@
         }
 
         function showOwnerSectionFromURL() {
-            const params = new URLSearchParams(window.location.search);
-            const uniqueNumber = params.get('number');
-            if (uniqueNumber) {
-                redirectBasedOnNumber(uniqueNumber);
-            }
-        }
-
+    const params = new URLSearchParams(window.location.search);
+    const uniqueNumber = params.get('number');
+    if (uniqueNumber && ownersData[uniqueNumber]) {
+        document.getElementById('owner-name').innerHTML = ownersData[uniqueNumber].name;
+        document.getElementById('vaccination-data').innerHTML = ownersData[uniqueNumber].vaccination;
+        document.getElementById('treatment-data').innerHTML = ownersData[uniqueNumber].treatment;
+        document.getElementById('disease-data').innerHTML = ownersData[uniqueNumber].disease;
+        document.getElementById('health-data').innerHTML = ownersData[uniqueNumber].health;
+        showSection('owners');
+    } else {
+        alert('Invalid number. Please enter a valid unique number.');
+    }
+}
         document.addEventListener('DOMContentLoaded', showOwnerSectionFromURL);
     </script>
 </body>
