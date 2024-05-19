@@ -28,21 +28,27 @@
         }
         .navbar img {
             height: 70px;
+            cursor: pointer;
         }
         .navbar div {
             display: flex;
             align-items: center;
         }
-        .navbar div input {
-            margin-left: 10px;
-        }
+        .navbar div input,
         .navbar div button {
             margin-left: 10px;
+            padding: 5px;
         }
         .navbar a {
             color: white;
             text-decoration: none;
             margin-left: 20px;
+            padding: 5px 10px;
+            transition: background-color 0.3s ease;
+        }
+        .navbar a:hover {
+            background-color: #006400;
+            border-radius: 5px;
         }
         .content {
             padding: 20px;
@@ -110,6 +116,15 @@
         }
         .bold {
             font-weight: bold;
+        }
+        @media (max-width: 768px) {
+            .box, .single-box {
+                width: 90%;
+            }
+            .form-group input,
+            .form-group textarea {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -216,77 +231,58 @@
     </div>
 
     <script>
-        const ownersData = {
-            '1615231801': {
-                name: 'Helen',
-                vaccination: 'Date: 2024-01-15<br>Vaccine: Newcastle Disease Vaccine<br>Batch Number: NDV-0423<br>Administered By: Dr. Jane Smith',
-                treatment: 'Date: 2024-02-10<br>Condition: Respiratory infection<br>Treatment: Antibiotics (Oxytetracycline)<br>Dosage: 100 mg/kg for 5 days<br>Administered By: Veterinary Technician Mike Johnson',
-                disease: 'Date: 2024-01-25<br>Disease: Coccidiosis<br>Treatment: Amprolium (Amprol)<br>Outcome: Recovered',
-                health: 'Date: 2024-05-01<br>Weight: 2.5 kg<br>Feed Intake: 150 g/day<br>Egg Production: 5 eggs/week'
-            },
-            '1615231802': {
-                name: 'Roilan',
-                vaccination: 'Date: 2024-02-15<br>Vaccine: Porcine Circovirus (PCV2) Vaccine<br>Batch Number: PCV2-0212<br>Administered By: Dr. Mark White',
-                treatment: 'Date: 2024-03-20<br>Condition: Swine Dysentery<br>Treatment: Antibiotics (Tiamulin)<br>Dosage: 8.8 mg/kg, daily for 5 days<br>Administered By: Veterinary Technician John Lee',
-                disease: 'Date: 2024-01-10<br>Disease: Porcine Reproductive and Respiratory Syndrome (PRRS)<br>Treatment: Supportive care and vaccination<br>Outcome: Recovered',
-                health: 'Date: 2024-05-01<br>Weight: 100 kg<br>Feed Intake: 3 kg/day<br>Growth Rate: 800 g/day'
-            },
-            '1615231803': {
-                name: 'Robert',
-                vaccination: 'Date: 2024-03-10<br>Vaccine: Foot-and-Mouth Disease (FMD) Vaccine<br>Batch Number: FMD-1057<br>Administered By: Dr. Sarah Brown',
-                treatment: 'Date: 2024-04-05<br>Condition: Mastitis<br>Treatment: Intramammary antibiotics (Cloxacillin)<br>Dosage: 500 mg per affected quarter, daily for 3 days<br>Administered By: Veterinary Technician Emily Davis',
-                disease: 'Date: 2023-12-20<br>Disease: Bovine Viral Diarrhea (BVD)<br>Treatment: Supportive care and fluid therapy<br>Outcome: Recovered',
-                health: 'Date: 2024-05-01<br>Weight: 600 kg<br>Feed Intake: 25 kg/day (total mixed ration)<br>Milk Production: 20 liters/day'
-            }
-        };
+        function redirectToHome() {
+            document.getElementById('main').style.display = 'block';
+            document.getElementById('owners').style.display = 'none';
+            document.getElementById('records').style.display = 'none';
+            document.getElementById('contact').style.display = 'none';
+        }
 
         function showSection(section) {
             document.getElementById('main').style.display = 'none';
             document.getElementById('owners').style.display = 'none';
             document.getElementById('records').style.display = 'none';
             document.getElementById('contact').style.display = 'none';
+
             document.getElementById(section).style.display = 'block';
         }
 
         function redirectBasedOnNumber() {
             const uniqueNumber = document.getElementById('uniqueNumber').value;
-            if (ownersData[uniqueNumber]) {
-                document.getElementById('owner-name').innerHTML = ownersData[uniqueNumber].name;
-                document.getElementById('vaccination-data').innerHTML = ownersData[uniqueNumber].vaccination;
-                document.getElementById('treatment-data').innerHTML = ownersData[uniqueNumber].treatment;
-                document.getElementById('disease-data').innerHTML = ownersData[uniqueNumber].disease;
-                document.getElementById('health-data').innerHTML = ownersData[uniqueNumber].health;
-                showSection('owners');
-            } else {
-                alert('Invalid number. Please enter a valid unique number.');
+            if (uniqueNumber) {
+                window.location.href = `?uniqueNumber=${uniqueNumber}`;
             }
         }
 
-        function redirectToHome() {
-            window.location.href = 'https://abraham-ah.github.io/POYAH/'; // Replace with your homepage URL
+        function showOwnerSectionFromURL() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const uniqueNumber = urlParams.get('uniqueNumber');
+            if (uniqueNumber) {
+                document.getElementById('main').style.display = 'none';
+                document.getElementById('owners').style.display = 'block';
+                document.getElementById('owner-name').innerText = uniqueNumber;
+
+                // Mock data for demonstration purposes
+                document.getElementById('vaccination-data').innerText = "Vaccination data for " + uniqueNumber;
+                document.getElementById('treatment-data').innerText = "Treatment history for " + uniqueNumber;
+                document.getElementById('disease-data').innerText = "Disease history for " + uniqueNumber;
+                document.getElementById('health-data').innerText = "Health monitoring data for " + uniqueNumber;
+            }
         }
 
         function submitForm(event) {
             event.preventDefault();
-            document.getElementById('submission-message').style.display = 'block';
-            setTimeout(() => {
-                document.getElementById('submission-message').style.display = 'none';
-            }, 2000);
             document.getElementById('name').value = '';
             document.getElementById('email').value = '';
             document.getElementById('contact-number').value = '';
             document.getElementById('concern').value = '';
+            document.getElementById('submission-message').style.display = 'block';
+            setTimeout(() => {
+                document.getElementById('submission-message').style.display = 'none';
+            }, 3000);
         }
 
-        function showOwnerSectionFromURL() {
-            const params = new URLSearchParams(window.location.search);
-            const uniqueNumber = params.get('number');
-            if (uniqueNumber) {
-                redirectBasedOnNumber(uniqueNumber);
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', showOwnerSectionFromURL);
+        showOwnerSectionFromURL();
     </script>
 </body>
 </html>
